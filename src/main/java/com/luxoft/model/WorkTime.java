@@ -3,17 +3,18 @@ package com.luxoft.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
  * Created by Aleksei Grishkov on 15.12.2016.
  */
 @Entity
+@Table(name = "worktime")
 public class WorkTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     private LocalTime firstEntry;
