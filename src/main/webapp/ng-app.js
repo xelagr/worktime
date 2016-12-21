@@ -41,7 +41,7 @@
             var toDate = $scope.toDate;
             var toParam = toDate.getYear() + "-" + (toDate.getMonth() + 1) + "-" + toDate.getDay();
 
-            $http.get('worksheets/' + fromParam + '/' + toParam + '/').then(function (response) {
+            $http.get('worktimes/id?from=' + fromParam + '&to=' + toParam).then(function (response) {
                 var serverResponse = response.data;
                 setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
             });
@@ -114,10 +114,6 @@
             }]
         }];
 
-        function formatNum(num) {
-            return (num > 9 ? '' : '0') + num;
-        }
-
         function getDataSet(response) {
             var dataSet = [];
             for (var i = 0; i < response.length; i++) {
@@ -167,6 +163,10 @@
         }
 
         setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
+
+        function formatNum(num) {
+            return (num > 9 ? '' : '0') + num;
+        }
 
     }]);
 
