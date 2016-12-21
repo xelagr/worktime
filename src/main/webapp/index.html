@@ -9,12 +9,15 @@
 	<script src="lib/ng-table.min.js"></script>
 	<script src="lib/angular-animate.min.js"></script>
 	<script src="lib/abn_tree_directive.js"></script>
+	<script src="lib/angular-aria.min.js"></script>
+	<script src="lib/angular-material.min.js"></script>
 	<script src="ng-app.js"></script>
-	
+
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap-3.3.7/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style-app.css">
-	<link rel="stylesheet" type="text/css" href="lib/abn_tree.css">	
-	<link rel="stylesheet" type="text/css" href="lib/ng-table.min.css">	
+	<link rel="stylesheet" type="text/css" href="lib/abn_tree.css">
+	<link rel="stylesheet" type="text/css" href="lib/ng-table.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/angular-material.min.css">
 
 </head>
 
@@ -23,10 +26,20 @@
 		<div id="pageHeader">
 			<h3 class="caption">Timesheets</h3>
 		</div>
-		
+
 		<div id="contentLiquid"><div id="pageContent">
 			<div>===== {{ output }}</div>
-			<div><font color="ChuckNorris">Date controls here</font></div>
+			<div class="datepickerHolder">
+				<div>
+                    From
+                    <md-datepicker ng-model="fromDate" md-placeholder="From date" md-max-date="toDate"></md-datepicker>
+                </div>
+                <div>
+                    To
+                    <md-datepicker ng-model="toDate" md-placeholder="To date" md-min-date="fromDate"></md-datepicker>
+                </div>
+			</div>
+
 			<div>
 				<table ng-table-dynamic="empController.tableParams with empController.cols" class="table table-bordered table-striped" show-filter="true">
 				    <tr ng-repeat="row in $data track by row.id">
@@ -35,7 +48,7 @@
 				</table>
 			</div>
 		</div></div>
-		
+
 		<div id="pageLeftMenu">
 			<div>
                 <span ng-if="doing_async">...loading...</span>
@@ -43,6 +56,6 @@
             </div>
 		</div>
 	</div>
-	
+
 </body>
 </html>
