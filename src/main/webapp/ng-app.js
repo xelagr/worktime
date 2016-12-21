@@ -37,11 +37,11 @@
             }
 
             var fromDate = $scope.fromDate;
-            var fromParam = fromDate.getYear() + "-" + (fromDate.getMonth() + 1) + "-" + fromDate.getDay();
+            var fromParam = (fromDate.getYear() + 1900) + "-" + formatNum((fromDate.getMonth() + 1)) + "-" + formatNum(fromDate.getDate());
             var toDate = $scope.toDate;
-            var toParam = toDate.getYear() + "-" + (toDate.getMonth() + 1) + "-" + toDate.getDay();
+            var toParam = (toDate.getYear() + 1900) + "-" + formatNum((toDate.getMonth() + 1)) + "-" + formatNum(toDate.getDate());
 
-            $http.get('worktimes/id?from=' + fromParam + '&to=' + toParam).then(function (response) {
+            $http.get('employees/worktimes/' + branch.id + '?from=' + fromParam + '&to=' + toParam).then(function (response) {
                 var serverResponse = response.data;
                 setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
             });
@@ -76,49 +76,11 @@
 
         ////////////////
         //Table config
-        var serverResponse = [{
-            "employeeId": 1,
-            "name": "Ivanov Ivan",
-            "workTimes": [{
-                "id": 1,
-                "firstEntry": {
-                    "hour": 8,
-                    "minute": 0,
-                    "second": 0,
-                    "nano": 0
-                },
-                "lastExit": {
-                    "hour": 16,
-                    "minute": 0,
-                    "second": 0,
-                    "nano": 0
-                },
-                "totalOfficeTime": {
-                    "hour": 8,
-                    "minute": 0,
-                    "second": 0,
-                    "nano": 0
-                },
-                "pureOfficeTime": {
-                    "hour": 7,
-                    "minute": 0,
-                    "second": 0,
-                    "nano": 0
-                },
-                "date": {
-                    "id": 1,
-                    "year": 2016,
-                    "month": 12,
-                    "day": 16
-                }
-            }]
-        }];
-
         function getDataSet(response) {
             var dataSet = [];
             for (var i = 0; i < response.length; i++) {
                 var employee = response[i];
-                var employeeData = {id: employee.employeeId, name: employee.name};
+                var employeeData = {id: employee.employeeId, name: employee.employeeName};
                 for (var j = 0; j < employee.workTimes.length; j++) {
                     var wt = employee.workTimes[j];
                     var dateValue = formatNum(wt.pureOfficeTime.hour) + ":" + formatNum(wt.pureOfficeTime.minute);
@@ -161,8 +123,6 @@
             });
             $scope.cols = cols;
         }
-
-        setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
 
         function formatNum(num) {
             return (num > 9 ? '' : '0') + num;
