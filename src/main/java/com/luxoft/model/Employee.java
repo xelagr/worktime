@@ -1,5 +1,7 @@
 package com.luxoft.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -49,6 +51,16 @@ public class Employee {
 
     public Collection<Employee> getEmployees() {
         return employees;
+    }
+
+    @JsonIgnore
+    public Employee getManager() {
+        return manager;
+    }
+
+    @JsonIgnore
+    public Collection<WorkTime> getWorkTime() {
+        return workTime;
     }
 
     @Override

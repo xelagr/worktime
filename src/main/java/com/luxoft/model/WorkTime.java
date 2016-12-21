@@ -1,7 +1,10 @@
 package com.luxoft.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * Created by Aleksei Grishkov on 15.12.2016.
@@ -13,26 +16,30 @@ public class WorkTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate firstEntry;
+    private LocalTime firstEntry;
 
-    private LocalDate lastExit;
+    private LocalTime lastExit;
 
-    private LocalDate totalOfficeTime;
+    private LocalTime totalOfficeTime;
 
-    private LocalDate pureOfficeTime;
+    private LocalTime pureOfficeTime;
 
-    private LocalDate currentDay;
+    @OneToOne(targetEntity = CustomDate.class, cascade = CascadeType.ALL)
+    private CustomDate date;
 
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne(targetEntity = Employee.class)
     private Employee employee;
 
-    public WorkTime(LocalDate currentDay, Employee employee, LocalDate firstEntry, LocalDate lastExit, LocalDate totalOfficeTime, LocalDate pureOfficeTime) {
+    public WorkTime(CustomDate date, Employee employee,
+                    LocalTime firstEntry, LocalTime lastExit,
+                    LocalTime totalOfficeTime, LocalTime pureOfficeTime) {
         this.firstEntry = firstEntry;
         this.lastExit = lastExit;
         this.totalOfficeTime = totalOfficeTime;
         this.pureOfficeTime = pureOfficeTime;
         this.employee = employee;
-        this.currentDay = currentDay;
+        this.date = date;
     }
 
     protected WorkTime() {
@@ -42,24 +49,24 @@ public class WorkTime {
         return id;
     }
 
-    public LocalDate getFirstEntry() {
+    public LocalTime getFirstEntry() {
         return firstEntry;
     }
 
-    public LocalDate getLastExit() {
+    public LocalTime getLastExit() {
         return lastExit;
     }
 
-    public LocalDate getTotalOfficeTime() {
+    public LocalTime getTotalOfficeTime() {
         return totalOfficeTime;
     }
 
-    public LocalDate getPureOfficeTime() {
+    public LocalTime getPureOfficeTime() {
         return pureOfficeTime;
     }
 
-    public LocalDate getCurrentDay() {
-        return currentDay;
+    public CustomDate getDate() {
+        return date;
     }
 
     public Employee getEmployee() {
