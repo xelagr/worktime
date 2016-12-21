@@ -19,10 +19,10 @@ public class WorkTimeApplication {
     @Profile("dev")
     CommandLineRunner init(EmployeeRepository employeeRepository) {
         return (args) -> {
-            Employee bigBoss = employeeRepository.save(new Employee("Dmitry", "Loshchinin", "Luxoft", null));
-            Employee manager1 = employeeRepository.save(new Employee("Alexander", "Tsvetkov", "Credits", bigBoss));
-            employeeRepository.save(new Employee("Alexander", "Avdeichik", "Credits", manager1));
-            employeeRepository.save(new Employee("Aleksei", "Grishkov", "Credits", manager1));
+            Employee bigBoss = employeeRepository.save(new Employee("Dmitry Loshchinin", "Luxoft", null));
+            Employee manager1 = employeeRepository.save(new Employee("Alexander Tsvetkov", "Credits", bigBoss));
+            employeeRepository.save(new Employee("Alexander Avdeichik", "Credits", manager1));
+            employeeRepository.save(new Employee("Aleksei Grishkov", "Credits", manager1));
         };
     }
 }

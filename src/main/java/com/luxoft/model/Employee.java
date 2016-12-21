@@ -13,9 +13,7 @@ public class Employee {
     @GeneratedValue
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private String program;
 
@@ -28,9 +26,8 @@ public class Employee {
     @OneToMany(targetEntity = WorkTime.class)
     private Collection<WorkTime> workTime;
 
-    public Employee(String firstName, String lastName, String program, Employee manager) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Employee(String name, String program, Employee manager) {
+        this.name = name;
         this.program = program;
         this.manager = manager;
     }
@@ -42,12 +39,8 @@ public class Employee {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
     public String getProgram() {
@@ -56,5 +49,20 @@ public class Employee {
 
     public Collection<Employee> getEmployees() {
         return employees;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        return id.equals(employee.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
