@@ -35,6 +35,16 @@
             if ((_ref = branch.data) != null ? _ref.description : void 0) {
                 return $scope.output += '(' + branch.data.description + ')';
             }
+
+            var fromDate = $scope.fromDate;
+            var fromParam = fromDate.getYear() + "-" + (fromDate.getMonth() + 1) + "-" + fromDate.getDay();
+            var toDate = $scope.toDate;
+            var toParam = toDate.getYear() + "-" + (toDate.getMonth() + 1) + "-" + toDate.getDay();
+
+            $http.get('worksheets/' + fromParam + '/' + toParam + '/').then(function (response) {
+                var serverResponse = response.data;
+                setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
+            });
         };
 
         $http.get('employees').then(function (response) {
@@ -126,9 +136,9 @@
         }
 
         function getColumns(fromDate, toDate) {
-            var name = {field: "name", title: "Name", show: "true", sortable: "name", filter: {name: "text"}};
-            var id = {field: "id", title: "id", show: "false", sortable: "id"};
-            var cols = [name, id];
+            var idField = {field: "id", title: "Id", show: "false", sortable: "id"};
+            var nameField = {field: "name", title: "Name", show: "true", sortable: "name", filter: {name: "text"}};
+            var cols = [idField, nameField];
             var diffDays = Math.ceil((toDate - fromDate) / (1000 * 3600 * 24));
             console.log("DiffDays: " + diffDays);
             for (var i = 0; i <= diffDays; i++) {
@@ -145,16 +155,18 @@
             return cols;
         }
 
-        var dataSet = getDataSet(serverResponse);
-        this.tableParams = new NgTableParams({
-            page: 1, // show first page
-            count: 10 // count per page
-        }, {
-            filterDelay: 0,
-            dataset: dataSet
-        });
+        function setGridData(dataSet, cols) {
+            $scope.tableParams = new NgTableParams({
+                page: 1, // show first page
+                count: 10 // count per page
+            }, {
+                filterDelay: 0,
+                dataset: dataSet
+            });
+            $scope.cols = cols;
+        }
 
-        this.cols = getColumns($scope.fromDate, $scope.toDate);
+        setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
 
     }]);
 

@@ -24,24 +24,26 @@
 <body>
 	<div id="appGrid" ng-controller="EmployeeTimesheetController as empController">
 		<div id="pageHeader">
-			<h3 class="caption">Timesheets</h3>
+			<div><h3 class="caption">Timesheets</h3></div>
+            <div id="logoutLink">logout</div>
 		</div>
 
 		<div id="contentLiquid"><div id="pageContent">
-			<div>===== {{ output }}</div>
+			<div>{{ output }}</div>
 			<div class="datepickerHolder">
-				<div>
+				<div id="fromDateHolder">
                     From
                     <md-datepicker ng-model="fromDate" md-placeholder="From date" md-max-date="toDate"></md-datepicker>
                 </div>
-                <div>
+                <div id="toDateHolder">
                     To
                     <md-datepicker ng-model="toDate" md-placeholder="To date" md-min-date="fromDate"></md-datepicker>
                 </div>
+                <div id="stubDateHolder">.</div>
 			</div>
 
 			<div>
-				<table ng-table-dynamic="empController.tableParams with empController.cols" class="table table-bordered table-striped" show-filter="true">
+				<table ng-table-dynamic="tableParams with cols" class="table table-bordered table-striped" show-filter="true">
 				    <tr ng-repeat="row in $data track by row.id">
 						<td ng-repeat="col in $columns">{{::row[col.field]}}</td>
 					</tr>
