@@ -7,10 +7,9 @@
 
         function formatTreeData(response) {
             var result = response;
-            if( result.prototype.toString.call( result ) !== '[object Array]' ) {
+            if( Object.prototype.toString.call( result ) !== '[object Array]' ) {
                 result = [response];
             }
-
             for (var i = 0; i < result.length; i++) {
                 var curEl = result[i];
                 curEl.label = curEl.lastName + ' ' + curEl.firstName.charAt(0);
