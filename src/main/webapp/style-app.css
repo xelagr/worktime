@@ -1,0 +1,74 @@
+/*@import url("reset.css");*/
+
+html,body { 
+	height:100%; 
+}
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color:#333
+}
+
+p {
+    padding: 10px;
+}
+
+#appGrid {
+    width: 100%;
+    min-width: 900px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+#pageHeader {
+    float: left;
+    height: 75px;
+    width: 100%;
+    background: #307DC9;
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+#contentLiquid {
+	background: #FFFFFF;	
+	float: left;
+    width: 100%;
+}
+
+#pageContent {
+    background: #FFFFFF;
+    margin-left: 260px;
+	margin-right: 20px;
+}
+
+#pageLeftMenu {
+    float: left;
+    background: #FFFFFF;
+    width: 250px;
+    margin-left: -100%;
+	
+	
+	border:0px;
+	margin-top: 10;
+	text-align: left;
+	padding-left: 10;
+	padding-right: 0;
+	margin-right: 0;
+	
+	/* scroll bar */
+	overflow-y: auto;
+	height: 85%;
+}
+
+.caption {
+	color: #FFFFFF;
+	margin-left: 30;
+}
+
+.input-filter {
+	height: 20px;
+	border-radius: 0px;
+	padding: 7px;
+}
+
