@@ -87,7 +87,12 @@
                 var employeeData = {id: employee.employeeId, name: employee.employeeName};
                 for (var j = 0; j < employee.workTimes.length; j++) {
                     var wt = employee.workTimes[j];
-                    var dateValue = formatNum(wt.pureOfficeTime.hour) + ":" + formatNum(wt.pureOfficeTime.minute);
+                    var pureOfficeTime = wt.pureOfficeTime;
+
+                    var dateValue =(pureOfficeTime != null)
+                        ? formatNum(pureOfficeTime.hour) + ":" + formatNum(pureOfficeTime.minute)
+                        : "00:00";
+
                     var dateKey = formatNum(wt.date.month) + formatNum(wt.date.day);
                     employeeData[dateKey] = dateValue;
                 }
@@ -104,7 +109,7 @@
             var diffDays = Math.ceil((toDate - fromDate) / (1000 * 3600 * 24));
             console.log("DiffDays: " + diffDays);
             for (var i = 0; i <= diffDays; i++) {
-                var colDate = new Date();
+                var colDate = new Date(fromDate);
                 colDate.setDate(fromDate.getDate() + i);
                 var month = formatNum(colDate.getMonth() + 1);
                 var day = formatNum(colDate.getDate());
