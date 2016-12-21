@@ -25,8 +25,8 @@ public class Employee {
     @OneToMany(mappedBy = "manager")
     private Collection<Employee> employees;
 
-    @OneToMany(targetEntity = WorkTime.class)
-    private Collection<WorkTime> workTime;
+    @OneToMany(targetEntity = WorkTime.class, cascade = CascadeType.ALL)
+    private Collection<WorkTime> workTimes;
 
     public Employee(String name, String program, Employee manager) {
         this.name = name;
@@ -59,8 +59,8 @@ public class Employee {
     }
 
     @JsonIgnore
-    public Collection<WorkTime> getWorkTime() {
-        return workTime;
+    public Collection<WorkTime> getWorkTimes() {
+        return workTimes;
     }
 
     @Override

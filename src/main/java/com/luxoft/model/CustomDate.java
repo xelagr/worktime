@@ -1,20 +1,32 @@
 package com.luxoft.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by user on 21.12.2016.
  */
 @Entity
+@Table(name="customdate")
 public class CustomDate {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
+    @Transient
     private int year;
+    @Transient
     private int month;
+    @Transient
     private int day;
+    @JsonIgnore
+    private Date date;
 
     public CustomDate() {}
 
@@ -22,21 +34,32 @@ public class CustomDate {
         this.year = year;
         this.month = month;
         this.day = day;
+
+        LocalDate localdate = LocalDate.of(year, month, day);
+        Instant instant = Instant.from(localdate.atStartOfDay(ZoneId.systemDefault()));
+        this.date = Date.from(instant);
     }
 
     public int getYear() {
-        return year;
+        LocalDate localdate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localdate.getYear();
     }
 
     public int getMonth() {
-        return month;
+        LocalDate localdate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localdate.getMonthValue();
     }
 
     public int getDay() {
-        return day;
+        LocalDate localdate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localdate.getDayOfMonth();
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

@@ -7,13 +7,15 @@ import java.util.Collection;
  */
 public class EmployeeWorkTime {
     private Long employeeId;
+    private String employeeName;
     private Collection<WorkTime> workTimes;
 
     public EmployeeWorkTime() {
     }
 
-    public EmployeeWorkTime(Long employeeId, Collection<WorkTime> workTimes) {
+    public EmployeeWorkTime(Long employeeId, String employeeName, Collection<WorkTime> workTimes) {
         this.employeeId = employeeId;
+        this.employeeName = employeeName;
         this.workTimes = workTimes;
     }
 
