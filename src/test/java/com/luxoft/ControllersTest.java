@@ -22,17 +22,33 @@ public class ControllersTest {
 	@Autowired
 	private MockMvc mockMvc;
 
+    @Test
+    public void testAllEmployees() throws Exception {
+        mockMvc.perform(get("/employees")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(4))
+                .andExpect(jsonPath("$[0].lastName").value("Loshchinin"))
+                .andExpect(jsonPath("$[0].employees.size()").value(1))
+                .andExpect(jsonPath("$[0].employees[0].lastName").value("Tsvetkov"))
+                .andExpect(jsonPath("$[0].employees[0].employees.size()").value(2))
+                .andExpect(jsonPath("$[0].employees[0].employees[0].lastName").value("Avdeichik"))
+                .andExpect(jsonPath("$[0].employees[0].employees[1].lastName").value("Grishkov"));
+    }
+
 	@Test
 	public void testGetEmployeesById() throws Exception {
-		mockMvc.perform(get("/1/employees")
+		mockMvc.perform(get("/employees/1")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.size()").value(1))
-                .andExpect(jsonPath("$[0].lastName").value("Tsvetkov"))
-                .andExpect(jsonPath("$[0].employees.size()").value(2))
-                .andExpect(jsonPath("$[0].employees[0].lastName").value("Avdeichik"))
-                .andExpect(jsonPath("$[0].employees[1].lastName").value("Grishkov"));
+                .andExpect(jsonPath("$.lastName").value("Loshchinin"))
+				.andExpect(jsonPath("$.employees.size()").value(1))
+                .andExpect(jsonPath("$.employees[0].lastName").value("Tsvetkov"))
+                .andExpect(jsonPath("$.employees[0].employees.size()").value(2))
+                .andExpect(jsonPath("$.employees[0].employees[0].lastName").value("Avdeichik"))
+                .andExpect(jsonPath("$.employees[0].employees[1].lastName").value("Grishkov"));
 	}
 
 	@Test

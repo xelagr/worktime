@@ -10,22 +10,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Created by Aleksei Grishkov on 16.12.2016.
  */
 @RestController
-@RequestMapping("/{managerId}/employees")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Employee> getEmployees(@PathVariable Long managerId) {
+    public Collection<Employee> getAllEmployees() {
         //TODO add validation
-        Optional<Employee> manager = employeeRepository.findById(managerId);
-        return manager.map(Employee::getEmployees).orElseThrow(() -> new EmployeeNotFoundException(managerId));
+        return employeeRepository.findAll();
+    }
+
+    @RequestMapping(path = "/{employeeId}", method = RequestMethod.GET)
+    public Employee getEmployee(@PathVariable Long employeeId) {
+        //TODO add validation
+        Optional<Employee> manager = employeeRepository.findById(employeeId);
+        return manager.orElseThrow(() -> new EmployeeNotFoundException(employeeId));
     }
 }
