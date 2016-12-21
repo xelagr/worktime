@@ -53,7 +53,9 @@ public class WorkTimeApplication {
         return (args) -> {
             try(InputStream is = new FileInputStream(excelFile)) {
                 Collection<Employee> employees = new ExcelParser().parse(is);
-                employees.forEach(employeeRepository::save);
+                employees.forEach(e -> {
+                    Employee employee = employeeRepository.save(e);
+                });
             }
         };
     }
