@@ -1,4 +1,4 @@
-package gr.aleksei.helper;
+package com.luxoft.helper;
 
 import org.springframework.test.context.TestPropertySource;
 

@@ -1,4 +1,4 @@
-package gr.aleksei.exception;
+package com.luxoft.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

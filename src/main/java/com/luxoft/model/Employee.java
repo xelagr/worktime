@@ -1,4 +1,4 @@
-package gr.aleksei.model;
+package com.luxoft.model;
 
 import javax.persistence.*;
 import java.util.Collection;

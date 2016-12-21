@@ -1,4 +1,4 @@
-package gr.aleksei.configuration;
+package com.luxoft.configuration;
 
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Value;

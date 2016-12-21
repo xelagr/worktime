@@ -1,7 +1,7 @@
-package gr.aleksei;
+package com.luxoft;
 
-import gr.aleksei.helper.DefaultTestSettings;
-import gr.aleksei.model.Employee;
+import com.luxoft.helper.DefaultTestSettings;
+import com.luxoft.model.Employee;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONCompareMode;

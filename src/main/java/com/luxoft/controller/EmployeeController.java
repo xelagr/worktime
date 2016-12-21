@@ -1,8 +1,8 @@
-package gr.aleksei.controller;
+package com.luxoft.controller;
 
-import gr.aleksei.exception.EmployeeNotFoundException;
-import gr.aleksei.model.Employee;
-import gr.aleksei.repository.EmployeeRepository;
+import com.luxoft.exception.EmployeeNotFoundException;
+import com.luxoft.model.Employee;
+import com.luxoft.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

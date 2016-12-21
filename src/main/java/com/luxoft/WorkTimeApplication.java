@@ -1,7 +1,7 @@
-package gr.aleksei;
+package com.luxoft;
 
-import gr.aleksei.model.Employee;
-import gr.aleksei.repository.EmployeeRepository;
+import com.luxoft.model.Employee;
+import com.luxoft.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,6 @@
-package gr.aleksei.repository;
+package com.luxoft.repository;
 
-import gr.aleksei.model.Employee;
+import com.luxoft.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
