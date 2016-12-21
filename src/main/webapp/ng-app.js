@@ -66,12 +66,86 @@
 
         ////////////////
         //Table config
+        var serverResponse = [{
+            "employeeId": 1,
+            "name": "Ivanov Ivan",
+            "workTimes": [{
+                "id": 1,
+                "firstEntry": {
+                    "hour": 8,
+                    "minute": 0,
+                    "second": 0,
+                    "nano": 0
+                },
+                "lastExit": {
+                    "hour": 16,
+                    "minute": 0,
+                    "second": 0,
+                    "nano": 0
+                },
+                "totalOfficeTime": {
+                    "hour": 8,
+                    "minute": 0,
+                    "second": 0,
+                    "nano": 0
+                },
+                "pureOfficeTime": {
+                    "hour": 7,
+                    "minute": 0,
+                    "second": 0,
+                    "nano": 0
+                },
+                "date": {
+                    "id": 1,
+                    "year": 2016,
+                    "month": 12,
+                    "day": 16
+                }
+            }]
+        }];
 
-        var dataSet = [
-            {id: 1, name: 'Moroni', age: 50},
-            {id: 2, name: 'Drakula', age: 1000},
-            {id: 3, name: 'Jun', age: 20}
-        ];
+        function formatNum(num) {
+            return (num > 9 ? '' : '0') + num;
+        }
+
+        function getDataSet(response) {
+            var dataSet = [];
+            for (var i = 0; i < response.length; i++) {
+                var employee = response[i];
+                var employeeData = {id: employee.employeeId, name: employee.name};
+                for (var j = 0; j < employee.workTimes.length; j++) {
+                    var wt = employee.workTimes[j];
+                    var dateValue = formatNum(wt.pureOfficeTime.hour) + ":" + formatNum(wt.pureOfficeTime.minute);
+                    var dateKey = formatNum(wt.date.month) + formatNum(wt.date.day);
+                    employeeData[dateKey] = dateValue;
+                }
+                dataSet.push(employeeData);
+            }
+            console.log("DataSet was built");
+            return dataSet;
+        }
+
+        function getColumns(fromDate, toDate) {
+            var name = {field: "name", title: "Name", show: "true", sortable: "name", filter: {name: "text"}};
+            var id = {field: "id", title: "id", show: "false", sortable: "id"};
+            var cols = [name, id];
+            var diffDays = Math.ceil((toDate - fromDate) / (1000 * 3600 * 24));
+            console.log("DiffDays: " + diffDays);
+            for (var i = 0; i <= diffDays; i++) {
+                var colDate = new Date();
+                colDate.setDate(fromDate.getDate() + i);
+                var month = formatNum(colDate.getMonth() + 1);
+                var day = formatNum(colDate.getDate());
+                var colDateKey = month + day;
+                var colDateValue = month + "." + day;
+
+                var dateCol = {field: colDateKey, title: colDateValue, show: "true", sortable: "true"};
+                cols.push(dateCol);
+            }
+            return cols;
+        }
+
+        var dataSet = getDataSet(serverResponse);
         this.tableParams = new NgTableParams({
             page: 1, // show first page
             count: 10 // count per page
@@ -80,10 +154,7 @@
             dataset: dataSet
         });
 
-        this.cols = [
-            {field: "name", title: "Name", show: true, sortable: "name", filter: {name: "text"}},
-            {field: "age", title: "Age", show: true, sortable: "age"}
-        ];
+        this.cols = getColumns($scope.fromDate, $scope.toDate);
 
     }]);
 
