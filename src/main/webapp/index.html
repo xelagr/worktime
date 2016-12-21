@@ -1,0 +1,48 @@
+<html ng-app="EmployeeTimesheetApp">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	
+	<title>Employees timesheet</title>
+
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/ng-table.min.js"></script>
+	<script src="lib/angular-animate.min.js"></script>
+	<script src="lib/abn_tree_directive.js"></script>
+	<script src="ng-app.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap-3.3.7/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style-app.css">
+	<link rel="stylesheet" type="text/css" href="lib/abn_tree.css">	
+	<link rel="stylesheet" type="text/css" href="lib/ng-table.min.css">	
+
+</head>
+
+<body>
+	<div id="appGrid" ng-controller="EmployeeTimesheetController as empController">
+		<div id="pageHeader">
+			<h3 class="caption">Timesheets</h3>
+		</div>
+		
+		<div id="contentLiquid"><div id="pageContent">
+			<div>===== {{ output }}</div>
+			<div><font color="ChuckNorris">Date controls here</font></div>
+			<div>
+				<table ng-table-dynamic="empController.tableParams with empController.cols" class="table table-bordered table-striped" show-filter="true">
+				    <tr ng-repeat="row in $data track by row.id">
+						<td ng-repeat="col in $columns">{{::row[col.field]}}</td>
+					</tr>
+				</table>
+			</div>
+		</div></div>
+		
+		<div id="pageLeftMenu">
+			<div>
+                <span ng-if="doing_async">...loading...</span>
+                <abn-tree tree-data="emp_tree_data" tree-control="tree_control" on-select="emp_tree_handler(branch)" expand-level="2"></abn-tree>
+            </div>
+		</div>
+	</div>
+	
+</body>
+</html>
