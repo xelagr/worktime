@@ -33,11 +33,11 @@
 			<div class="datepickerHolder">
 				<div id="fromDateHolder">
                     From
-                    <md-datepicker ng-model="fromDate" md-placeholder="From date" md-max-date="toDate"></md-datepicker>
+                    <md-datepicker ng-model="fromDate" ng-change=changeDateHandler() md-placeholder="From date" md-max-date="toDate"></md-datepicker>
                 </div>
                 <div id="toDateHolder">
                     To
-                    <md-datepicker ng-model="toDate" md-placeholder="To date" md-min-date="fromDate"></md-datepicker>
+                    <md-datepicker ng-model="toDate" ng-change=changeDateHandler() md-placeholder="To date" md-min-date="fromDate"></md-datepicker>
                 </div>
                 <div id="stubDateHolder">.</div>
 			</div>

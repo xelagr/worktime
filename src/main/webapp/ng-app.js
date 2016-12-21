@@ -30,24 +30,12 @@
         }
 
         $scope.emp_tree_handler = function (branch) {
-            var _ref;
-            $scope.output = "You selected: " + branch.name;
-            if ((_ref = branch.data) != null ? _ref.description : void 0) {
-                return $scope.output += '(' + branch.data.description + ')';
-            }
-
-            var fromDate = $scope.fromDate;
-            var fromParam = (fromDate.getYear() + 1900) + "-" + formatNum((fromDate.getMonth() + 1)) + "-" + formatNum(fromDate.getDate());
-            var toDate = $scope.toDate;
-            var toParam = (toDate.getYear() + 1900) + "-" + formatNum((toDate.getMonth() + 1)) + "-" + formatNum(toDate.getDate());
-
-            $http.get('employees/worktimes/' + branch.id + '?from=' + fromParam + '&to=' + toParam).then(function (response) {
-                var serverResponse = response.data;
-                setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
-            });
+            $scope.selectedId = branch.id;
+            retrieveWorktimes();
         };
 
-        $http.get('employees').then(function (response) {
+
+        $http.get('employees/1').then(function (response) {
             var serverResponse = response.data;
             $scope.emp_tree_data = formatTreeData(serverResponse);
 
@@ -56,6 +44,10 @@
 
         ////////////////
         //Date pickers config
+
+        $scope.changeDateHandler = function () {
+            retrieveWorktimes();
+        };
 
         function getPreviousMonday() {
             var d = new Date();
@@ -76,6 +68,18 @@
 
         ////////////////
         //Table config
+        function retrieveWorktimes() {
+            var fromDate = $scope.fromDate;
+            var fromParam = (fromDate.getYear() + 1900) + "-" + formatNum((fromDate.getMonth() + 1)) + "-" + formatNum(fromDate.getDate());
+            var toDate = $scope.toDate;
+            var toParam = (toDate.getYear() + 1900) + "-" + formatNum((toDate.getMonth() + 1)) + "-" + formatNum(toDate.getDate());
+
+            $http.get('employees/worktimes/' + $scope.selectedId + '?from=' + fromParam + '&to=' + toParam).then(function (response) {
+                var serverResponse = response.data;
+                setGridData(getDataSet(serverResponse), getColumns($scope.fromDate, $scope.toDate));
+            });
+        }
+
         function getDataSet(response) {
             var dataSet = [];
             for (var i = 0; i < response.length; i++) {
