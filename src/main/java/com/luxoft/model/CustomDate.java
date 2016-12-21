@@ -44,6 +44,9 @@ public class CustomDate {
         this.year = localDate.getYear();
         this.month = localDate.getMonth().getValue();
         this.day = localDate.getDayOfMonth();
+
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        this.date = Date.from(instant);
     }
 
     public int getYear() {
@@ -76,5 +79,25 @@ public class CustomDate {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
