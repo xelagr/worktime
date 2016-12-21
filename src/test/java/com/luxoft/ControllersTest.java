@@ -29,12 +29,12 @@ public class ControllersTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(4))
-                .andExpect(jsonPath("$[0].lastName").value("Loshchinin"))
+                .andExpect(jsonPath("$[0].name").value("Dmitry Loshchinin"))
                 .andExpect(jsonPath("$[0].employees.size()").value(1))
-                .andExpect(jsonPath("$[0].employees[0].lastName").value("Tsvetkov"))
+                .andExpect(jsonPath("$[0].employees[0].name").value("Alexander Tsvetkov"))
                 .andExpect(jsonPath("$[0].employees[0].employees.size()").value(2))
-                .andExpect(jsonPath("$[0].employees[0].employees[0].lastName").value("Avdeichik"))
-                .andExpect(jsonPath("$[0].employees[0].employees[1].lastName").value("Grishkov"));
+                .andExpect(jsonPath("$[0].employees[0].employees[0].name").value("Alexander Avdeichik"))
+                .andExpect(jsonPath("$[0].employees[0].employees[1].name").value("Aleksei Grishkov"));
     }
 
 	@Test
@@ -43,12 +43,12 @@ public class ControllersTest {
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andDo(print())
 				.andExpect(status().isOk())
-                .andExpect(jsonPath("$.lastName").value("Loshchinin"))
+                .andExpect(jsonPath("$.name").value("Dmitry Loshchinin"))
 				.andExpect(jsonPath("$.employees.size()").value(1))
-                .andExpect(jsonPath("$.employees[0].lastName").value("Tsvetkov"))
+                .andExpect(jsonPath("$.employees[0].name").value("Alexander Tsvetkov"))
                 .andExpect(jsonPath("$.employees[0].employees.size()").value(2))
-                .andExpect(jsonPath("$.employees[0].employees[0].lastName").value("Avdeichik"))
-                .andExpect(jsonPath("$.employees[0].employees[1].lastName").value("Grishkov"));
+                .andExpect(jsonPath("$.employees[0].employees[0].name").value("Alexander Avdeichik"))
+                .andExpect(jsonPath("$.employees[0].employees[1].name").value("Aleksei Grishkov"));
 	}
 
 	@Test

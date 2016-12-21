@@ -28,7 +28,7 @@ public class BasicJsonTest {
 
     @Test
     public void testSerialize() throws IOException {
-        Employee employee = new Employee("Alex", "Grishkov", "Credits", null);
+        Employee employee = new Employee("Alex Grishkov", "Credits", null);
         System.out.println(employeeJacksonTester.write(employee).getJson());
         assertThat(employeeJacksonTester.write(employee)).isEqualToJson("employee.json", JSONCompareMode.STRICT);
     }
