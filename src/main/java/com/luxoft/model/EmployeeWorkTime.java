@@ -23,6 +23,10 @@ public class EmployeeWorkTime {
         return employeeId;
     }
 
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
     public Collection<WorkTime> getWorkTimes() {
         return workTimes;
     }

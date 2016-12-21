@@ -1,14 +1,16 @@
 package com.luxoft.controller;
 
 import com.luxoft.exception.EmployeeNotFoundException;
+import com.luxoft.model.CustomDate;
 import com.luxoft.model.Employee;
+import com.luxoft.model.EmployeeWorkTime;
+import com.luxoft.model.WorkTime;
 import com.luxoft.repository.EmployeeRepository;
+import com.luxoft.service.WorkTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +36,18 @@ public class EmployeeController {
         //TODO add validation
         Optional<Employee> manager = employeeRepository.findById(employeeId);
         return manager.orElseThrow(() -> new EmployeeNotFoundException(employeeId));
+    }
+
+    @Autowired
+    WorkTimeService workTimeService;
+
+
+    @RequestMapping(path = "/worktimes/{employeeId}", method = RequestMethod.GET)
+    public @ResponseBody List<EmployeeWorkTime> getEmployeeWorkTimes(@PathVariable Long employeeId, @RequestParam String from, @RequestParam String to) {
+        LocalDate f = LocalDate.parse(from);
+        LocalDate t = LocalDate.parse(to);
+        return workTimeService.getEmployeeWorkTimes(employeeId,
+                new CustomDate(f.getYear(), f.getMonthValue(), f.getDayOfMonth()),
+                new CustomDate(t.getYear(), t.getMonthValue(), t.getDayOfMonth()));
     }
 }

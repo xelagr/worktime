@@ -29,4 +29,14 @@ public class WorkTimeRepositoryTest {
                         new CustomDate(2016, 12, 21),
                         new CustomDate(2016, 12, 22))));
     }
+
+    @Test
+    public void testRepo2() throws Exception {
+        ObjectMapper m = new ObjectMapper();
+
+        System.out.println(m.writerWithDefaultPrettyPrinter().writeValueAsString(
+                repository.getEmployeesWorkTimes(Arrays.asList(1L),
+                        new CustomDate(2016, 12, 19),
+                        new CustomDate(2016, 12, 19))));
+    }
 }

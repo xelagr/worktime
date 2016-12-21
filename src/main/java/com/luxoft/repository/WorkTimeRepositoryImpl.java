@@ -34,13 +34,21 @@ public class WorkTimeRepositoryImpl implements WorkTimeRepositoryCustom {
     }
 
     private List<WorkTime> getWorkTimes(Long id, CustomDate from, CustomDate to) {
-        String sql = "Select w.* from WorkTime w LEFT JOIN customdate cd on cd.id = w.date_id" +
-                " WHERE w.employee_id = :id and cd.DATE BETWEEN :fro and :to";
+        //String sql = "Select w.* from WorkTime w LEFT JOIN customdate cd on cd.id = w.date_id" +
+        //        " WHERE w.employee_id = :id and cd.DATE BETWEEN :fro and :to";
 
-        Query q = em.createNativeQuery(sql);
+        String hql = "FROM WorkTime w LEFT JOIN FETCH w.employee e" +
+                " LEFT JOIN FETCH w.date d" +
+                " where e.id = :id" +
+                " and d.date between :f and :t";
+        //" w LEFT JOIN customdate cd on cd.id = w.date_id" +
+          //      " WHERE w.employee_id = :id and cd.DATE BETWEEN :fro and :to";
+        /*Query q = em.createNativeQuery(sql);
+*/
+        Query q = em.createQuery(hql);
         q.setParameter("id", id);
-        q.setParameter("fro", from.getDate());
-        q.setParameter("to", to.getDate());
+        q.setParameter("f", from.getDate());
+        q.setParameter("t", to.getDate());
 
         List result = q.getResultList();
         if(null == result) {
