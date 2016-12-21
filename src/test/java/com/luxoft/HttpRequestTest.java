@@ -1,5 +1,6 @@
 package com.luxoft;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //TODO tests real http requests to real web server
 //TODO currently do nothing, extend if needed
+@Ignore
 public class HttpRequestTest {
 
     @LocalServerPort
