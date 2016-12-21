@@ -25,6 +25,9 @@ public class Employee {
     @OneToMany(mappedBy = "manager")
     private Collection<Employee> employees;
 
+    @OneToMany(targetEntity = WorkTime.class)
+    private Collection<WorkTime> workTime;
+
     public Employee(String firstName, String lastName, String program, Employee manager) {
         this.firstName = firstName;
         this.lastName = lastName;
