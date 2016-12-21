@@ -3,6 +3,7 @@ package com.luxoft.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -22,16 +23,17 @@ public class Employee {
     @ManyToOne
     private Employee manager;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
     private Collection<Employee> employees;
 
-    @OneToMany(targetEntity = WorkTime.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = WorkTime.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<WorkTime> workTimes;
 
     public Employee(String name, String program, Employee manager) {
         this.name = name;
         this.program = program;
         this.manager = manager;
+        this.workTimes = new ArrayList<>();
     }
 
     protected Employee() {
@@ -47,6 +49,14 @@ public class Employee {
 
     public String getProgram() {
         return program;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    public void addWorkTime(WorkTime workTime) {
+        this.workTimes.add(workTime);
     }
 
     public Collection<Employee> getEmployees() {

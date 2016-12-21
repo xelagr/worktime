@@ -6,14 +6,13 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by user on 21.12.2016.
  */
 @Entity
-@Table(name="customdate")
+@Table(name = "customdate")
 public class CustomDate {
     @Id
     @GeneratedValue
@@ -28,7 +27,8 @@ public class CustomDate {
     @JsonIgnore
     private Date date;
 
-    public CustomDate() {}
+    protected CustomDate() {
+    }
 
     public CustomDate(int year, int month, int day) {
         this.year = year;
@@ -38,6 +38,12 @@ public class CustomDate {
         LocalDate localdate = LocalDate.of(year, month, day);
         Instant instant = Instant.from(localdate.atStartOfDay(ZoneId.systemDefault()));
         this.date = Date.from(instant);
+    }
+
+    public CustomDate(LocalDate localDate) {
+        this.year = localDate.getYear();
+        this.month = localDate.getMonth().getValue();
+        this.day = localDate.getDayOfMonth();
     }
 
     public int getYear() {
@@ -57,6 +63,15 @@ public class CustomDate {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomDate{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
     }
 
     public Date getDate() {
