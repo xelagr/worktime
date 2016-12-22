@@ -17,12 +17,10 @@
         var uid = $cookies.get('uid');
         if (uid < 1) {
             window.location = "login.html";
-        }
-        $scope.userId = uid;
-
-        if (uid < 1) {
             return;
         }
+
+        $scope.userId = uid;
         ////////////////
         //tree config
 
@@ -91,14 +89,14 @@
             });
         }
 
-        function getMinutesFromHHMM(s) {
+        function minutesFromHHMM(s) {
             var h = parseInt(s.substring(0, 2));
             var m = parseInt(s.substring(3, 5));
             return (h * 60) + m;
         }
 
         function minutesToHHMM(minutes) {
-            return formatNum(Math.round(minutes / 60)) + ":" + formatNum(minutes % 60);
+            return formatNum(Math.floor(minutes / 60)) + ":" + formatNum(minutes % 60);
         }
 
         function getDataSet(response) {
@@ -110,13 +108,11 @@
                 for (var j = 0; j < employee.workTimes.length; j++) {
                     var wt = employee.workTimes[j];
                     var pureOfficeTime = wt.pureOfficeTime;
-
                     var dateValue =(pureOfficeTime != null)
                         ? formatNum(pureOfficeTime.hour) + ":" + formatNum(pureOfficeTime.minute)
                         : "00:00";
 
-                    totalMinutes += getMinutesFromHHMM(dateValue);
-
+                    totalMinutes += minutesFromHHMM(dateValue);
                     var dateKey = formatNum(wt.date.month) + formatNum(wt.date.day);
                     employeeData[dateKey] = dateValue;
                 }
