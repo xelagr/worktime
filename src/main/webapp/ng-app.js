@@ -1,5 +1,5 @@
 (function () {
-    var deps = ['angularBootstrapNavTree', 'ngTable', 'ngAnimate', 'ngMaterial'];
+    var deps = ['angularBootstrapNavTree', 'ngTable', 'ngAnimate', 'ngMaterial', 'ngCookies'];
 
     var app = angular.module('EmployeeTimesheetApp', deps);
 
@@ -8,12 +8,23 @@
         $mdDateLocaleProvider.firstDayOfWeek = 1;
     });
 
-    app.controller('EmployeeTimesheetController', ['$scope', '$http', 'NgTableParams', function ($scope, $http, NgTableParams) {
-
-        ////////////////
-        //tree config
+    app.controller('EmployeeTimesheetController', ['$scope', '$http', '$cookies', 'NgTableParams', function ($scope, $http, $cookies, NgTableParams) {
         $scope.tree_control = {};
         $scope.emp_tree_data =  [];
+
+        ////////////////
+        // authorization
+        var uid = $cookies.get('uid');
+        if (uid < 1) {
+            window.location = "login.html";
+        }
+        $scope.userId = uid;
+
+        if (uid < 1) {
+            return;
+        }
+        ////////////////
+        //tree config
 
         function formatTreeData(response) {
             var result = response;
@@ -35,7 +46,7 @@
         };
 
 
-        $http.get('employees/1').then(function (response) {
+        $http.get('employees/' + uid).then(function (response) {
             var serverResponse = response.data;
             $scope.emp_tree_data = formatTreeData(serverResponse);
 

@@ -68,13 +68,16 @@ p {
 	margin-left: 30px;
 }
 
+#logoutHolder {
+    float: right;
+    margin-right: 30px;
+    margin-top: 30px;
+}
+
 #logoutLink {
     font-style: italic;
     text-decoration: underline;
     color:white;
-    float: right;
-    margin-right: 30px;
-    margin-top: 30px;
 }
 
 .input-filter {
@@ -127,4 +130,31 @@ span.md-calendar-date-selection-indicator {
     float:right;
     padding-bottom: 40px;
     color:white;
+}
+
+#loginForm {
+    padding-top: 40px;
+    padding-left: 40%;
+    float:left;
+}
+
+#loginErrorText {
+    color: red;
+}
+
+#submitBtn {
+    float: right;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.loginField {
+    clear:both;
+    text-align:right;
+    line-height:20px;
+    padding-top: 10px;
+}
+
+label {
+    float:left; padding-right:10px;
 }

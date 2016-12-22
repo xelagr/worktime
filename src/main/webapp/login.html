@@ -1,0 +1,80 @@
+<html ng-app="TimesheetLoginApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+    <title>Timesheet::Login</title>
+
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-cookies.min.js"></script>
+    <script>
+        var app = angular.module('TimesheetLoginApp', ['ngCookies']);
+
+        app.controller('TimesheetLoginController', ['$scope', '$cookies', '$http', function ($scope, $cookies, $http) {
+            $cookies.put("uid", 0);
+
+            $scope.username = "";
+            $scope.password = "";
+
+            $scope.signIn = function () {
+                //we can try to auth here via $http, set session etc, but anyway we need Active Directory, so stub should be ok
+                var users = [
+                    'Большой начальник',
+                    'Менеджер 1',
+                    'Сотрудник 1',
+                    'Сотрудник 2',
+                    'Сотрудник 3',
+                    'Менеджер 2',
+                    'Сотрудник 4',
+                    'Сотрудник 5'
+                ];
+
+                var isOk = false;
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    if (user === $scope.username && $scope.password) {
+                        isOk = true;
+                        var expireDate = new Date();
+                        expireDate.setDate(expireDate.getDate() + 1);
+
+                        $cookies.put("uid", i + 1, {'expires': expireDate});
+                        window.location = "index.html";
+                    }
+                }
+
+                $scope.errorText = isOk ? "" : "Invalid Username/Password";
+            }
+        }]);
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style-app.css">
+
+</head>
+
+<body>
+
+<div id="appGrid">
+    <div id="pageHeader">
+        <div><h3 class="caption">Timesheets</h3></div>
+    </div>
+
+    <div id="loginForm" ng-controller="TimesheetLoginController">
+        <form method="post" ng-submit="signIn()">
+            <div class="loginField">
+                <label for="username">User Name</label>
+                <input id="username" type="text" name="username" ng-model="username"/>
+            </div>
+            <div class="loginField">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" ng-model="password"/>
+            </div>
+            <div>
+                <input id="submitBtn" type="submit" value="Sign In"/>
+            </div>
+        </form>
+        <div id="loginErrorText">{{ errorText }}</div>
+    </div>
+
+</div>
+</body>
+</html>
