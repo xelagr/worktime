@@ -132,6 +132,10 @@ span.md-calendar-date-selection-indicator {
     color:white;
 }
 
+#table-timesheet {
+    overflow: auto;
+}
+
 #loginForm {
     padding-top: 40px;
     padding-left: 40%;

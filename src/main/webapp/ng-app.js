@@ -127,7 +127,7 @@
                 var colDateKey = month + day;
                 var colDateValue = month + "." + day;
 
-                var dateCol = {field: colDateKey, title: colDateValue, show: "true", sortable: "true"};
+                var dateCol = {field: colDateKey, title: colDateValue, show: "true", sortable: colDateKey};
                 cols.push(dateCol);
             }
             return cols;

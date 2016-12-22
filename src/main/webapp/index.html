@@ -43,8 +43,8 @@
                 <div id="stubDateHolder">.</div>
 			</div>
 
-			<div>
-				<table ng-table-dynamic="tableParams with cols" class="table table-bordered table-striped" show-filter="true">
+			<div id="table-timesheet">
+				<table ng-table-dynamic="tableParams with cols" class="table table-bordered table-striped" show-filter="true" export-csv="csv">
 				    <tr ng-repeat="row in $data track by row.id">
 						<td ng-repeat="col in $columns">{{::row[col.field]}}</td>
 					</tr>
