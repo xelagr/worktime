@@ -91,11 +91,22 @@
             });
         }
 
+        function getMinutesFromHHMM(s) {
+            var h = parseInt(s.substring(0, 2));
+            var m = parseInt(s.substring(3, 5));
+            return (h * 60) + m;
+        }
+
+        function minutesToHHMM(minutes) {
+            return formatNum(Math.round(minutes / 60)) + ":" + formatNum(minutes % 60);
+        }
+
         function getDataSet(response) {
             var dataSet = [];
             for (var i = 0; i < response.length; i++) {
                 var employee = response[i];
                 var employeeData = {id: employee.employeeId, name: employee.employeeName};
+                var totalMinutes = 0;
                 for (var j = 0; j < employee.workTimes.length; j++) {
                     var wt = employee.workTimes[j];
                     var pureOfficeTime = wt.pureOfficeTime;
@@ -104,9 +115,12 @@
                         ? formatNum(pureOfficeTime.hour) + ":" + formatNum(pureOfficeTime.minute)
                         : "00:00";
 
+                    totalMinutes += getMinutesFromHHMM(dateValue);
+
                     var dateKey = formatNum(wt.date.month) + formatNum(wt.date.day);
                     employeeData[dateKey] = dateValue;
                 }
+                employeeData.total = minutesToHHMM(totalMinutes);
                 dataSet.push(employeeData);
             }
             console.log("DataSet was built");
@@ -130,6 +144,7 @@
                 var dateCol = {field: colDateKey, title: colDateValue, show: "true", sortable: colDateKey};
                 cols.push(dateCol);
             }
+            cols.push({field: "total", title: "Total", show: "true", sortable: "total"});
             return cols;
         }
 
