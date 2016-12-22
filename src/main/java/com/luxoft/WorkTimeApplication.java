@@ -51,7 +51,7 @@ public class WorkTimeApplication {
     @Profile("prod")
     CommandLineRunner loadRealData(EmployeeRepository employeeRepository) {
         return (args) -> {
-            try(InputStream is = new FileInputStream(excelFile)) {
+            try(InputStream is = getClass().getClassLoader().getResourceAsStream(excelFile)) {
                 Collection<Employee> employees = new ExcelParser().parse(is);
                 employees.forEach(e -> {
                     Employee employee = employeeRepository.save(e);
