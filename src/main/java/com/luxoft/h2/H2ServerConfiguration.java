@@ -1,4 +1,4 @@
-package com.luxoft.configuration;
+package com.luxoft.h2;
 
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 
 @Configuration
-@Profile("dev") // Only activate this in the "dev" profile
+@Profile("dev")
 public class H2ServerConfiguration {
 
     // TCP port for remote connections, default 9092

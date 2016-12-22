@@ -23,7 +23,7 @@ public class ExcelParser implements Parser {
     private static final int EMPLOYEE_FIRST_ROW_INDEX = 4;
     private static final String DATE_PATTERN = "dd.MM.yyyy";
     private static final DataFormatter CELL_FORMATTER = new DataFormatter();
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm:ss");
 
     @Override
     public Collection<Employee> parse(InputStream input) throws Exception {
@@ -113,10 +113,10 @@ public class ExcelParser implements Parser {
     }
 
     private static class EmployeeInfo {
-        public Long id;
-        public Long managerId;
-        public String name;
-        public String program;
+        Long id;
+        Long managerId;
+        String name;
+        String program;
     }
 
     private enum EmployeeColumn {
@@ -127,9 +127,7 @@ public class ExcelParser implements Parser {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "C:\\Users\\user\\Downloads\\Демо отчет SPb_21.11-27.11.2016.xls";
-        Collection<Employee> employees = new ExcelParser().parse(new FileInputStream(fileName));
-        employees.forEach(e -> System.out.printf("%s (%s) - %s%n", e.getName(), (e.getManager() != null ? e.getManager().getName() : null), e.getWorkTimes().iterator().next().getDate()));
+
     }
 
 }

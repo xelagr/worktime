@@ -1,5 +1,6 @@
 package com.luxoft;
 
+import com.luxoft.helper.DefaultTestSettings;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@DefaultTestSettings
 public class ControllersTest {
 
 	@Autowired
 	private MockMvc mockMvc;
+
+	@Test
+	public void testGetJson() throws Exception {
+		mockMvc.perform(get("/employees")
+				.accept(MediaType.APPLICATION_JSON_UTF8))
+				.andDo(print());
+	}
 
     @Test
     public void testAllEmployees() throws Exception {

@@ -1,6 +1,7 @@
 package com.luxoft.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.luxoft.helper.DefaultTestSettings;
 import com.luxoft.model.CustomDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +16,9 @@ import java.util.Arrays;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-
+@DefaultTestSettings
 public class WorkTimeRepositoryTest {
+
     @Autowired
     private WorkTimeRepository repository;
 
