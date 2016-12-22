@@ -148,8 +148,14 @@ span.md-calendar-date-selection-indicator {
 
 #submitBtn {
     float: right;
-    margin-top: 15px;
-    width: 100%;
+    margin-left: 15px;
+    margin-top: 20px;
+    width: 90%;
+    min-height: 25px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #2374c9;
+    text-transform: none;
 }
 
 .loginField {

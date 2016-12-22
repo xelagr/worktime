@@ -5,9 +5,13 @@
     <title>Timesheet::Login</title>
 
     <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-animate.min.js"></script>
+    <script src="lib/angular-aria.min.js"></script>
+    <script src="lib/angular-material.min.js"></script>
     <script src="lib/angular-cookies.min.js"></script>
+
     <script>
-        var app = angular.module('TimesheetLoginApp', ['ngCookies']);
+        var app = angular.module('TimesheetLoginApp', ['ngCookies', 'ngMaterial']);
 
         app.controller('TimesheetLoginController', ['$scope', '$cookies', '$http', function ($scope, $cookies, $http) {
             $cookies.put("uid", 0);
@@ -48,6 +52,7 @@
 
     <link rel="stylesheet" type="text/css" href="lib/bootstrap-3.3.7/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="style-app.css">
+    <link rel="stylesheet" type="text/css" href="lib/angular-material.min.css">
 
 </head>
 
@@ -69,7 +74,7 @@
                 <input id="password" type="password" name="password" ng-model="password"/>
             </div>
             <div>
-                <input id="submitBtn" type="submit" value="Sign In"/>
+                <md-button type="submit" id="submitBtn" class="md-raised md-primary">Sign In</md-button>
             </div>
         </form>
         <div id="loginErrorText">{{ errorText }}</div>
