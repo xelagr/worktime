@@ -126,8 +126,4 @@ public class ExcelParser implements Parser {
         PROGRAM
     }
 
-    public static void main(String[] args) throws Exception {
-
-    }
-
 }
